@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="20.1.7.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Margins="98, 59, 59, 0" PageWidth="850" PageHeight="1100" Version="20.1" DataMember="CN_BLOME" DataSource="#Ref-0">
+  <Parameters>
+    <Item1 Ref="3" Visible="false" Description="CODIGO DE EMPRESA" Name="P_EMP_CODI" Type="#Ref-2" />
+    <Item2 Ref="5" Visible="false" Description="NOMBRE EMPRESA" Name="P_EMP_NOMB" />
+    <Item3 Ref="6" Visible="false" Description="USUARIO" Name="P_USER" />
+    <Item4 Ref="7" Visible="false" Description="Formato de fecha" Name="P_FORMATO_FECHA" />
+    <Item5 Ref="8" Visible="false" ValueInfo="PDF" Name="FORMATO" />
+  </Parameters>
+  <CalculatedFields>
+    <Item1 Ref="9" Name="Pagina" FieldType="Int32" Expression="Iif(True, '#NOT_SUPPORTED#', 'truncate(PageNumber);&#xD;&#xA;//StringVar numero := ToText(truncate(PageNumber));&#xD;&#xA;//numero[1];')" DataMember="CN_BLOME" />
+    <Item2 Ref="10" Name="Fecha" FieldType="DateTime" Expression="Iif(True, '#NOT_SUPPORTED#', 'CurrentDate')" DataMember="CN_BLOME" />
+    <Item3 Ref="11" Name="Hora" FieldType="DateTime" Expression="Iif(True, '#NOT_SUPPORTED#', 'CurrentTime')" DataMember="CN_BLOME" />
+    <Item4 Ref="12" Name="Estado" FieldType="String" Expression="Iif([BLO_ACTI] = 'S', 'Bloqueado', 'No Bloqueado')" DataMember="CN_BLOME" />
+    <Item5 Ref="13" Name="codebar39" FieldType="String" Expression="Iif(True, '#NOT_SUPPORTED#', 'numberVar chk := 1;&#xD;&#xA;stringVar data := &quot;123456789&quot;;')" DataMember="CN_BLOME" />
+  </CalculatedFields>
+  <Bands>
+    <Item1 Ref="14" ControlType="DetailBand" Name="DetailArea1" HeightF="17" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="15" ControlType="XRLabel" Name="BLOANOP1" CanGrow="false" TextAlignment="TopLeft" SizeF="58.3333321,14.583333" LocationFloat="16.666666,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="16" EventName="BeforePrint" PropertyName="Text" Expression="[BLO_ANOP]" />
+          </ExpressionBindings>
+        </Item1>
+        <Item2 Ref="17" ControlType="XRLabel" Name="BLOMESP1" CanGrow="false" TextAlignment="TopLeft" SizeF="56.25,14.583333" LocationFloat="100,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="18" EventName="BeforePrint" PropertyName="Text" Expression="[BLO_MESP]" />
+          </ExpressionBindings>
+        </Item2>
+        <Item3 Ref="19" ControlType="XRLabel" Name="Estado_1" CanGrow="false" TextAlignment="TopLeft" SizeF="87.5,14.583333" LocationFloat="175,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="20" EventName="BeforePrint" PropertyName="Text" Expression="[Estado]" />
+          </ExpressionBindings>
+        </Item3>
+      </Controls>
+    </Item1>
+    <Item2 Ref="21" ControlType="GroupHeaderBand" Name="GroupHeaderArea1" HeightF="15" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100" Visible="false">
+      <GroupFields>
+        <Item1 Ref="22" FieldName="EMP_CODI" />
+      </GroupFields>
+    </Item2>
+    <Item3 Ref="23" ControlType="GroupFooterBand" Name="GroupFooterArea1" HeightF="2" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100" />
+    <Item4 Ref="24" ControlType="ReportHeaderBand" Name="ReportHeaderArea1" HeightF="16" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100" Visible="false" />
+    <Item5 Ref="25" ControlType="PageHeaderBand" Name="PageHeaderArea1" HeightF="0" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <SubBands>
+        <Item1 Ref="26" ControlType="SubBand" Name="PageHeaderSection1" HeightF="114" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+          <Controls>
+            <Item1 Ref="27" ControlType="XRLabel" Name="Text1" Text="Página:&#x9;&#x9;{@Pagina}&#xA;Programa:        SCnBlome&#xA;Usuario            {?P_USER}&#xA;Fecha:&#x9;&#x9;{@Fecha}&#xA;Hora:&#x9;&#x9;{@Hora}" TextAlignment="TopLeft" SizeF="339.583344,97.9166641" LocationFloat="525,16.666666" Font="Arial, 7.2pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item2 Ref="28" ControlType="XRLabel" Name="Text2" CanGrow="false" Text="BLOQUO DE MESES DE CONTABILIDAD" TextAlignment="TopCenter" SizeF="683.3333,15.625" LocationFloat="0,66.6666641" Font="Arial, 7.2pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item3 Ref="29" ControlType="XRLabel" Name="PEMPNOMB1" CanGrow="false" TextAlignment="TopCenter" SizeF="683.3333,14.583333" LocationFloat="0,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+              <ExpressionBindings>
+                <Item1 Ref="30" EventName="BeforePrint" PropertyName="Text" Expression="?P_EMP_NOMB" />
+              </ExpressionBindings>
+            </Item3>
+            <Item4 Ref="31" ControlType="XRLabel" Name="PEMPCODI1" CanGrow="false" TextAlignment="TopLeft" SizeF="75,14.583333" LocationFloat="0,33.3333321" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" Visible="false">
+              <ExpressionBindings>
+                <Item1 Ref="32" EventName="BeforePrint" PropertyName="Text" Expression="?P_EMP_CODI" />
+              </ExpressionBindings>
+            </Item4>
+          </Controls>
+        </Item1>
+        <Item2 Ref="33" ControlType="SubBand" Name="PageHeaderSection2" HeightF="76" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+          <Controls>
+            <Item1 Ref="34" ControlType="XRLine" Name="Line1" Font="Times New Roman, 9.75pt" SizeF="683.3333,2" LocationFloat="0,8.333333" ForeColor="Black" BackColor="Transparent" Padding="0,0,0,0,100" BorderColor="Black" Borders="Top" BorderWidth="1" />
+            <Item2 Ref="35" ControlType="XRLine" Name="Line2" Font="Times New Roman, 9.75pt" SizeF="683.3333,2" LocationFloat="0,34.375" ForeColor="Black" BackColor="Transparent" Padding="0,0,0,0,100" BorderColor="Black" Borders="Top" BorderWidth="1" />
+            <Item3 Ref="36" ControlType="XRLabel" Name="Text3" CanGrow="false" Text="AÑO" TextAlignment="TopLeft" SizeF="58.3333321,14.583333" LocationFloat="16.666666,16.666666" Font="Arial, 7.2pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item4 Ref="37" ControlType="XRLabel" Name="Text4" CanGrow="false" Text="MES" TextAlignment="TopLeft" SizeF="56.25,14.583333" LocationFloat="100,16.666666" Font="Arial, 7.2pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item5 Ref="38" ControlType="XRLabel" Name="Text5" CanGrow="false" Text="ESTADO" TextAlignment="TopLeft" SizeF="87.5,14.583333" LocationFloat="175,16.666666" Font="Arial, 7.2pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item6 Ref="39" ControlType="XRLabel" Name="codebar39_1" CanGrow="false" TextAlignment="TopLeft" SizeF="175,50" LocationFloat="333.333344,16.666666" Font="Microsoft Sans Serif, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+              <ExpressionBindings>
+                <Item1 Ref="40" EventName="BeforePrint" PropertyName="Text" Expression="[codebar39]" />
+              </ExpressionBindings>
+            </Item6>
+          </Controls>
+        </Item2>
+      </SubBands>
+    </Item5>
+    <Item6 Ref="41" ControlType="ReportFooterBand" Name="ReportFooterArea1" HeightF="23" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="42" ControlType="XRLabel" Name="Text6" CanGrow="false" Text="*** FIN REPORTE ***" TextAlignment="TopCenter" SizeF="679.1667,13.958333" LocationFloat="4.16666651,3.75" Font="Arial, 7.2pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item2 Ref="43" ControlType="XRLine" Name="Line3" Font="Times New Roman, 9.75pt" SizeF="683.3333,2" LocationFloat="0,2.08333325" ForeColor="Black" BackColor="Transparent" Padding="0,0,0,0,100" BorderColor="Black" Borders="Top" BorderWidth="1" />
+      </Controls>
+    </Item6>
+    <Item7 Ref="44" ControlType="PageFooterBand" Name="PageFooterArea1" HeightF="85" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="45" ControlType="XRLabel" Name="Text7" CanGrow="false" Text="SEVEN - Contabilidad - Digital Ware." TextAlignment="TopLeft" SizeF="272.708344,15.9722223" LocationFloat="8.333333,25" Font="Arial, 7pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item2 Ref="46" ControlType="XRLabel" Name="PFORMATOFECHA1" CanGrow="false" TextAlignment="TopLeft" SizeF="96.6666641,12.6388893" LocationFloat="591.6667,25" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="47" EventName="BeforePrint" PropertyName="Text" Expression="?P_FORMATO_FECHA" />
+          </ExpressionBindings>
+        </Item2>
+        <Item3 Ref="48" ControlType="XRLabel" Name="Text8" CanGrow="false" Text="Formato de fecha:" TextAlignment="TopLeft" SizeF="95.1388855,14.2361107" LocationFloat="491.666656,25" Font="Arial, 7.2pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+      </Controls>
+    </Item7>
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v20.1" Name="SevenDesarrollo" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0iU2V2ZW5EZXNhcnJvbGxvIj48Q29ubmVjdGlvbiBOYW1lPSJDb25uZWN0aW9uIiBQcm92aWRlcktleT0iTVNTcWxTZXJ2ZXIiPjxQYXJhbWV0ZXJzPjxQYXJhbWV0ZXIgTmFtZT0ic2VydmVyIiBWYWx1ZT0iU2V2ZW5EZXNhcnJvbGxvIiAvPjxQYXJhbWV0ZXIgTmFtZT0iZGF0YWJhc2UiIFZhbHVlPSJTZXZlbkRlc2Fycm9sbG8iIC8+PFBhcmFtZXRlciBOYW1lPSJ1c2VJbnRlZ3JhdGVkU2VjdXJpdHkiIFZhbHVlPSJGYWxzZSIgLz48UGFyYW1ldGVyIE5hbWU9InJlYWQgb25seSIgVmFsdWU9IjEiIC8+PFBhcmFtZXRlciBOYW1lPSJnZW5lcmF0ZUNvbm5lY3Rpb25IZWxwZXIiIFZhbHVlPSJmYWxzZSIgLz48UGFyYW1ldGVyIE5hbWU9InVzZXJpZCIgVmFsdWU9InNhIiAvPjxQYXJhbWV0ZXIgTmFtZT0icGFzc3dvcmQiIFZhbHVlPSIiIC8+PC9QYXJhbWV0ZXJzPjwvQ29ubmVjdGlvbj48UXVlcnkgVHlwZT0iU2VsZWN0UXVlcnkiIE5hbWU9IkNOX0JMT01FIj48VGFibGVzPjxUYWJsZSBOYW1lPSJDTl9CTE9NRSIgLz48L1RhYmxlcz48Q29sdW1ucz48Q29sdW1uIFRhYmxlPSJDTl9CTE9NRSIgTmFtZT0iRU1QX0NPREkiIC8+PENvbHVtbiBUYWJsZT0iQ05fQkxPTUUiIE5hbWU9IkJMT19BTk9QIiAvPjxDb2x1bW4gVGFibGU9IkNOX0JMT01FIiBOYW1lPSJCTE9fTUVTUCIgLz48Q29sdW1uIFRhYmxlPSJDTl9CTE9NRSIgTmFtZT0iQkxPX0FDVEkiIC8+PENvbHVtbiBUYWJsZT0iQ05fQkxPTUUiIE5hbWU9IkFVRF9FU1RBIiAvPjxDb2x1bW4gVGFibGU9IkNOX0JMT01FIiBOYW1lPSJBVURfVVNVQSIgLz48Q29sdW1uIFRhYmxlPSJDTl9CTE9NRSIgTmFtZT0iQVVEX1VGQUMiIC8+PC9Db2x1bW5zPjwvUXVlcnk+PFJlc3VsdFNjaGVtYT48RGF0YVNldCBOYW1lPSJTZXZlbkRlc2Fycm9sbG8iPjxWaWV3IE5hbWU9IkNOX0JMT01FIj48RmllbGQgTmFtZT0iRU1QX0NPREkiIFR5cGU9IkludDE2IiAvPjxGaWVsZCBOYW1lPSJCTE9fQU5PUCIgVHlwZT0iSW50MTYiIC8+PEZpZWxkIE5hbWU9IkJMT19NRVNQIiBUeXBlPSJJbnQxNiIgLz48RmllbGQgTmFtZT0iQkxPX0FDVEkiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQVVEX0VTVEEiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQVVEX1VTVUEiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQVVEX1VGQUMiIFR5cGU9IkRhdGVUaW1lIiAvPjwvVmlldz48L0RhdGFTZXQ+PC9SZXN1bHRTY2hlbWE+PENvbm5lY3Rpb25PcHRpb25zIENsb3NlQ29ubmVjdGlvbj0idHJ1ZSIgLz48L1NxbERhdGFTb3VyY2U+" />
+  </ComponentStorage>
+  <ObjectStorage>
+    <Item1 ObjectType="DevExpress.XtraReports.Serialization.ObjectStorageInfo, DevExpress.XtraReports.v20.1" Ref="2" Content="System.Double" Type="System.Type" />
+  </ObjectStorage>
+</XtraReportsLayoutSerializer>

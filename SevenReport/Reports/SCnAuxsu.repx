@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="20.1.7.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v20.1, Version=20.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Landscape="true" Margins="98, 59, 88, 0" PageWidth="1100" PageHeight="850" Version="20.1" DataMember="selectQuery1" DataSource="#Ref-0">
+  <Parameters>
+    <Item1 Ref="3" Visible="false" Name="P_EMP_CODI" Type="#Ref-2" />
+    <Item2 Ref="5" Visible="false" Name="P_EMP_NOMB" />
+    <Item3 Ref="6" Visible="false" Description="USUARIO" Name="P_USER" />
+    <Item4 Ref="7" Visible="false" Description="Formato de fecha" Name="P_FORMATO_FECHA" />
+    <Item5 Ref="8" Visible="false" Description="Año" Name="P_ANO" Type="#Ref-2" />
+    <Item6 Ref="9" Visible="false" Description="Mes Inicial" Name="P_MES_INIC" Type="#Ref-2" />
+    <Item7 Ref="10" Visible="false" Description="Mes Final" Name="P_MES_FINA" Type="#Ref-2" />
+    <Item8 Ref="11" Visible="false" Description="Cuenta Inicial" Name="P_CUE_INIC" />
+    <Item9 Ref="12" Visible="false" Description="Cuenta Final" Name="P_CUE_FINA" />
+    <Item10 Ref="13" Visible="false" Description="Sucursal Inicial" Name="P_ARB_INIC" />
+    <Item11 Ref="14" Visible="false" Description="Sucursal Final" Name="P_ARB_FINA" />
+  </Parameters>
+  <CalculatedFields>
+    <Item1 Ref="15" Name="Pagina" FieldType="Int32" Expression="Iif(True, '#NOT_SUPPORTED#', 'truncate(PageNumber);&#xD;&#xA;//StringVar numero := ToText(truncate(PageNumber));&#xD;&#xA;//numero[1];')" DataMember="selectQuery1" />
+    <Item2 Ref="16" Name="Fecha" FieldType="DateTime" Expression="Iif(True, '#NOT_SUPPORTED#', 'CurrentDate')" DataMember="selectQuery1" />
+    <Item3 Ref="17" Name="Hora" FieldType="DateTime" Expression="Iif(True, '#NOT_SUPPORTED#', 'CurrentTime')" DataMember="selectQuery1" />
+    <Item4 Ref="18" Name="MCO_FECH_1" FieldType="DateTime" Expression="MCO_FECH" DataMember="selectQuery1" />
+    <Item5 Ref="19" Name="MES_FINA" FieldType="String" Expression="Iif(?P_MES_FINA = 1, 'Enero', ?P_MES_FINA = 2, 'Febrero', ?P_MES_FINA = 3, 'Marzo', ?P_MES_FINA = 4, 'Abril', ?P_MES_FINA = 5, 'Mayo', ?P_MES_FINA = 6, 'Junio', ?P_MES_FINA = 7, 'Julio', ?P_MES_FINA = 8, 'Agosto', ?P_MES_FINA = 9, 'Septiembre', ?P_MES_FINA = 10, 'Octubre', ?P_MES_FINA = 11, 'Noviembre', ?P_MES_FINA = 12, 'Diciembre', null)" DataMember="selectQuery1" />
+    <Item6 Ref="20" Name="MES_INIC" FieldType="String" Expression="Iif(?P_MES_INIC = 1, 'Enero', ?P_MES_INIC = 2, 'Febrero', ?P_MES_INIC = 3, 'Marzo', ?P_MES_INIC = 4, 'Abril', ?P_MES_INIC = 5, 'Mayo', ?P_MES_INIC = 6, 'Junio', ?P_MES_INIC = 7, 'Julio', ?P_MES_INIC = 8, 'Agosto', ?P_MES_INIC = 9, 'Septiembre', ?P_MES_INIC = 10, 'Octubre', ?P_MES_INIC = 11, 'Noviembre', ?P_MES_INIC = 12, 'Diciembre', null)" DataMember="selectQuery1" />
+    <Item7 Ref="21" Name="SAL_FINA" FieldType="Int32" Expression="Iif(True, '#NOT_SUPPORTED#', 'if not OnFirstRecord then&#xD;&#xA; (&#xD;&#xA;  if (Previous({CN_AUXSU.CUE_CODI}) &lt;&gt; {CN_AUXSU.CUE_CODI}) or (Previous({CN_AUXSU.ARB_CODI}) &lt;&gt; {CN_AUXSU.ARB_CODI}) then&#xD;&#xA;    numberVar SALDO := {CN_AUXSU.SAL_INIC} + {CN_AUXSU.DMC_VADB} - {CN_AUXSU.DMC_VACR}&#xD;&#xA;   else&#xD;&#xA;    numberVar SALDO := SALDO + {CN_AUXSU.DMC_VADB} - {CN_AUXSU.DMC_VACR};&#xD;&#xA; )&#xD;&#xA;else&#xD;&#xA; numberVar SALDO := {CN_AUXSU.SAL_INIC} + {CN_AUXSU.DMC_VADB} - {CN_AUXSU.DMC_VACR}')" DataMember="selectQuery1" />
+    <Item8 Ref="22" Name="SAL_FINA_CU" FieldType="Int32" Expression="[SAL_INIC_CU] + [][[CUE_CODI] = [^.CN_AUXSU.CUE_CODI]].Sum([DMC_VADB]) - [][[CUE_CODI] = [^.CN_AUXSU.CUE_CODI]].Sum([DMC_VACR])" DataMember="selectQuery1" />
+    <Item9 Ref="23" Name="SAL_FINA_SU" FieldType="Int32" Expression="[SAL_INIC_SU] + [][[ARB_CODI] = [^.CN_AUXSU.ARB_CODI]].Sum([DMC_VADB]) - [][[ARB_CODI] = [^.CN_AUXSU.ARB_CODI]].Sum([DMC_VACR])" DataMember="selectQuery1" />
+    <Item10 Ref="24" Name="SAL_INIC_CU" FieldType="Int32" Expression="[][[CUE_CODI] = [^.CN_AUXSU.CUE_CODI]].Sum([SAL_INIC])" DataMember="selectQuery1" />
+    <Item11 Ref="25" Name="SAL_INIC_SU" FieldType="Int32" Expression="[][[ARB_CODI] = [^.CN_AUXSU.ARB_CODI]].Sum([SAL_INIC])" DataMember="selectQuery1" />
+  </CalculatedFields>
+  <Bands>
+    <Item1 Ref="26" ControlType="DetailBand" Name="DetailArea1" HeightF="15" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="27" ControlType="XRLabel" Name="MCO_FECH" TextAlignment="TopLeft" SizeF="64.5833359,12.8472223" LocationFloat="50,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="28" EventName="BeforePrint" PropertyName="Text" Expression="[MCO_FECH_1]" />
+          </ExpressionBindings>
+        </Item1>
+        <Item2 Ref="29" ControlType="XRLabel" Name="TOPCODI1" TextAlignment="TopCenter" SizeF="47.9166679,12.8472223" LocationFloat="119.791664,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="30" EventName="BeforePrint" PropertyName="Text" Expression="[TOP_CODI]" />
+          </ExpressionBindings>
+        </Item2>
+        <Item3 Ref="31" ControlType="XRLabel" Name="MCONUME1" TextAlignment="TopCenter" SizeF="62.5,12.8472223" LocationFloat="173.958328,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="32" EventName="BeforePrint" PropertyName="Text" Expression="[MCO_NUME]" />
+          </ExpressionBindings>
+        </Item3>
+        <Item4 Ref="33" ControlType="XRLabel" Name="DMCREFE1" TextAlignment="TopCenter" SizeF="90.625,12.8472223" LocationFloat="243.75,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="34" EventName="BeforePrint" PropertyName="Text" Expression="[DMC_REFE]" />
+          </ExpressionBindings>
+        </Item4>
+        <Item5 Ref="35" ControlType="XRLabel" Name="DMCDESC1" TextAlignment="TopLeft" SizeF="193.75,12.8472223" LocationFloat="339.583344,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="36" EventName="BeforePrint" PropertyName="Text" Expression="[DMC_DESC]" />
+          </ExpressionBindings>
+        </Item5>
+        <Item6 Ref="37" ControlType="XRLabel" Name="TERCODA1" TextAlignment="TopLeft" SizeF="73.9583359,12.8472223" LocationFloat="538.5417,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="38" EventName="BeforePrint" PropertyName="Text" Expression="[TER_CODA]" />
+          </ExpressionBindings>
+        </Item6>
+        <Item7 Ref="39" ControlType="XRLabel" Name="DMCVADB1" CanGrow="false" TextAlignment="TopRight" SizeF="93.75,12.8472223" LocationFloat="617.7083,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="40" EventName="BeforePrint" PropertyName="Text" Expression="[DMC_VADB]" />
+          </ExpressionBindings>
+        </Item7>
+        <Item8 Ref="41" ControlType="XRLabel" Name="DMCVACR1" CanGrow="false" TextAlignment="TopRight" SizeF="101.041664,12.8472223" LocationFloat="718.75,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="42" EventName="BeforePrint" PropertyName="Text" Expression="[DMC_VACR]" />
+          </ExpressionBindings>
+        </Item8>
+        <Item9 Ref="43" ControlType="XRLabel" Name="SAL_FINA_1" CanGrow="false" TextAlignment="TopRight" SizeF="100,12.8472223" LocationFloat="825,0" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="44" EventName="BeforePrint" PropertyName="Text" Expression="[SAL_FINA]" />
+          </ExpressionBindings>
+        </Item9>
+      </Controls>
+    </Item1>
+    <Item2 Ref="45" ControlType="GroupHeaderBand" Name="GroupHeaderArea1" HeightF="29" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <GroupFields>
+        <Item1 Ref="46" FieldName="CUE_CODI" />
+      </GroupFields>
+      <Controls>
+        <Item1 Ref="47" ControlType="XRLabel" Name="Text25" CanGrow="false" Text="CUENTA" TextAlignment="TopLeft" SizeF="75,14.583333" LocationFloat="17.708334,2.08333325" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item2 Ref="48" ControlType="XRLabel" Name="Text26" Text="{CN_AUXSU.CUE_CODI} - {CN_AUXSU.CUE_NOMB}" TextAlignment="TopLeft" SizeF="321.875,15.625" LocationFloat="137.5,2.08333325" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item3 Ref="49" ControlType="XRLabel" Name="Text27" Text="SALDO  INICIAL  CUENTA:  " TextAlignment="TopLeft" SizeF="153.125,15.625" LocationFloat="459.375,3.125" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item4 Ref="50" ControlType="XRLabel" Name="SAL_INIC_CU_1" CanGrow="false" TextAlignment="TopLeft" SizeF="93.75,13.333333" LocationFloat="617.7083,4.16666651" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="51" EventName="BeforePrint" PropertyName="Text" Expression="[SAL_INIC_CU]" />
+          </ExpressionBindings>
+        </Item4>
+      </Controls>
+    </Item2>
+    <Item3 Ref="52" ControlType="GroupHeaderBand" Name="GroupHeaderArea2" Level="1" HeightF="25.083334" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <GroupFields>
+        <Item1 Ref="53" FieldName="ARB_CODI" />
+      </GroupFields>
+      <Controls>
+        <Item1 Ref="54" ControlType="XRLabel" Name="Text28" CanGrow="false" Text="SUCURSAL" TextAlignment="TopLeft" SizeF="66.6666641,15.625" LocationFloat="28.125,2.08333325" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item2 Ref="55" ControlType="XRLabel" Name="Text29" Text="{CN_AUXSU.ARB_CODI} - {CN_AUXSU.ARB_NOMB}" TextAlignment="TopLeft" SizeF="321.875,12.8472223" LocationFloat="137.5,2.08333325" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item3 Ref="56" ControlType="XRLabel" Name="Text30" Text="SALDO INICIAL SUCURSAL:   " TextAlignment="TopLeft" SizeF="153.125,14.583333" LocationFloat="459.375,2.08333325" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item4 Ref="57" ControlType="XRLabel" Name="SAL_INIC_SU_1" CanGrow="false" TextAlignment="TopLeft" SizeF="91.31944,13.333333" LocationFloat="617.7083,0" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="58" EventName="BeforePrint" PropertyName="Text" Expression="[SAL_INIC_SU]" />
+          </ExpressionBindings>
+        </Item4>
+      </Controls>
+    </Item3>
+    <Item4 Ref="59" ControlType="GroupFooterBand" Name="GroupFooterArea1" HeightF="28" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="60" ControlType="XRLabel" Name="SumadeSALINIC1" CanGrow="false" TextAlignment="TopLeft" SizeF="41.38889,11.25" LocationFloat="533.3333,0" Font="Arial, 7pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" Visible="false">
+          <Summary Ref="61" Running="Report" />
+          <ExpressionBindings>
+            <Item1 Ref="62" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([SAL_INIC])" />
+          </ExpressionBindings>
+        </Item1>
+        <Item2 Ref="63" ControlType="XRLabel" Name="SumadeDMCVADB1" CanGrow="false" TextAlignment="TopRight" SizeF="93.75,13.333333" LocationFloat="617.7083,0" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <Summary Ref="64" Running="Report" />
+          <ExpressionBindings>
+            <Item1 Ref="65" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([DMC_VADB])" />
+          </ExpressionBindings>
+        </Item2>
+        <Item3 Ref="66" ControlType="XRLabel" Name="SumadeDMCVACR1" CanGrow="false" TextAlignment="TopRight" SizeF="101.041664,13.333333" LocationFloat="718.75,0" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <Summary Ref="67" Running="Report" />
+          <ExpressionBindings>
+            <Item1 Ref="68" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([DMC_VACR])" />
+          </ExpressionBindings>
+        </Item3>
+        <Item4 Ref="69" ControlType="XRLabel" Name="Text31" CanGrow="false" Text="TOTAL SUCURSAL" TextAlignment="TopLeft" SizeF="109.375,15.625" LocationFloat="28.125,0" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item5 Ref="70" ControlType="XRLabel" Name="CUENOMB1" CanGrow="false" TextAlignment="TopLeft" SizeF="345.833344,15.208333" LocationFloat="137.5,0" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="71" EventName="BeforePrint" PropertyName="Text" Expression="[CUE_NOMB]" />
+          </ExpressionBindings>
+        </Item5>
+        <Item6 Ref="72" ControlType="XRLabel" Name="SAL_FINA_SU_1" CanGrow="false" TextAlignment="TopRight" SizeF="100,13.333333" LocationFloat="825,0" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="73" EventName="BeforePrint" PropertyName="Text" Expression="[SAL_FINA_SU]" />
+          </ExpressionBindings>
+        </Item6>
+        <Item7 Ref="74" ControlType="XRLabel" Name="Text32" CanGrow="false" TextAlignment="TopLeft" SizeF="10.3472223,15.6944447" LocationFloat="495.902771,2.08333325" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item8 Ref="75" ControlType="XRLabel" Name="Text33" CanGrow="false" TextAlignment="TopLeft" SizeF="10.3472223,15.6944447" LocationFloat="511.458344,2.08333325" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item9 Ref="76" ControlType="XRLabel" Name="Text34" CanGrow="false" TextAlignment="TopLeft" SizeF="10.3472223,15.6944447" LocationFloat="528.194458,2.08333325" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item10 Ref="77" ControlType="XRLabel" Name="Text35" CanGrow="false" TextAlignment="TopLeft" SizeF="10.3472223,15.6944447" LocationFloat="554.1667,1.04166663" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+      </Controls>
+    </Item4>
+    <Item5 Ref="78" ControlType="GroupFooterBand" Name="GroupFooterArea2" Level="1" HeightF="35" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="79" ControlType="XRLabel" Name="SumadeSALINIC2" CanGrow="false" TextAlignment="TopLeft" SizeF="41.38889,11.25" LocationFloat="533.3333,0" Font="Arial, 7pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" Visible="false">
+          <Summary Ref="80" Running="Report" />
+          <ExpressionBindings>
+            <Item1 Ref="81" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([SAL_INIC])" />
+          </ExpressionBindings>
+        </Item1>
+        <Item2 Ref="82" ControlType="XRLabel" Name="SumadeDMCVADB2" CanGrow="false" TextAlignment="TopRight" SizeF="93.75,13.333333" LocationFloat="617.7083,7.29166651" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <Summary Ref="83" Running="Report" />
+          <ExpressionBindings>
+            <Item1 Ref="84" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([DMC_VADB])" />
+          </ExpressionBindings>
+        </Item2>
+        <Item3 Ref="85" ControlType="XRLabel" Name="ARBNOMB1" CanGrow="false" TextAlignment="TopLeft" SizeF="344.791656,15.208333" LocationFloat="137.5,5.20833349" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="86" EventName="BeforePrint" PropertyName="Text" Expression="[ARB_NOMB]" />
+          </ExpressionBindings>
+        </Item3>
+        <Item4 Ref="87" ControlType="XRLabel" Name="Text36" CanGrow="false" Text="TOTAL CUENTA" TextAlignment="TopLeft" SizeF="91.6666641,15.625" LocationFloat="17.708334,5.20833349" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item5 Ref="88" ControlType="XRLabel" Name="SumadeDMCVACR2" CanGrow="false" TextAlignment="TopRight" SizeF="101.041664,13.333333" LocationFloat="718.75,7.29166651" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <Summary Ref="89" Running="Report" />
+          <ExpressionBindings>
+            <Item1 Ref="90" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([DMC_VACR])" />
+          </ExpressionBindings>
+        </Item5>
+        <Item6 Ref="91" ControlType="XRLabel" Name="SAL_FINA_CU_1" CanGrow="false" TextAlignment="TopRight" SizeF="101.25,12.8472223" LocationFloat="825,8.333333" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="92" EventName="BeforePrint" PropertyName="Text" Expression="[SAL_FINA_CU]" />
+          </ExpressionBindings>
+        </Item6>
+        <Item7 Ref="93" ControlType="XRLabel" Name="Text37" CanGrow="false" TextAlignment="TopLeft" SizeF="10.3472223,15.6944447" LocationFloat="546.875,8.333333" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item8 Ref="94" ControlType="XRLabel" Name="Text38" CanGrow="false" TextAlignment="TopLeft" SizeF="10.3472223,15.6944447" LocationFloat="496.875,7.29166651" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item9 Ref="95" ControlType="XRLabel" Name="Text39" CanGrow="false" TextAlignment="TopLeft" SizeF="10.3472223,15.6944447" LocationFloat="509.375,8.333333" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item10 Ref="96" ControlType="XRLabel" Name="Text40" CanGrow="false" TextAlignment="TopLeft" SizeF="10.3472223,15.6944447" LocationFloat="522.9861,7.29166651" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+      </Controls>
+    </Item5>
+    <Item6 Ref="97" ControlType="ReportHeaderBand" Name="ReportHeaderArea1" HeightF="0" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <SubBands>
+        <Item1 Ref="98" ControlType="SubBand" Name="ReportHeaderSection1" HeightF="96" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+          <Controls>
+            <Item1 Ref="99" ControlType="XRLabel" Name="Text1" Text="PERIODO:  {@MES_INIC}  a  {@MES_FINA}  de  {?P_ANO}" TextAlignment="TopCenter" SizeF="907.2917,11.25" LocationFloat="17.708334,65.625" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item2 Ref="100" ControlType="XRLabel" Name="Text2" Text="AUXILIAR CUENTA SUCURSAL" TextAlignment="TopCenter" SizeF="907.2917,13.1944447" LocationFloat="17.708334,40.625" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item3 Ref="101" ControlType="XRLabel" Name="PEMPNOMB1" TextAlignment="TopCenter" SizeF="907.2917,13.0555553" LocationFloat="17.708334,15.625" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+              <ExpressionBindings>
+                <Item1 Ref="102" EventName="BeforePrint" PropertyName="Text" Expression="?P_EMP_NOMB" />
+              </ExpressionBindings>
+            </Item3>
+            <Item4 Ref="103" ControlType="XRLabel" Name="Text3" Text="Página:          {@Pagina}&#xA;Programa:     SCnAuxsu&#xA;Usuario         {?P_USER}&#xA;Fecha:          {@Fecha}&#xA;Hora:            {@Hora}" TextAlignment="TopLeft" SizeF="166.666672,66.6666641" LocationFloat="758.3333,8.333333" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+          </Controls>
+        </Item1>
+        <Item2 Ref="104" ControlType="SubBand" Name="ReportHeaderSection2" HeightF="66" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+          <Controls>
+            <Item1 Ref="105" ControlType="XRLabel" Name="Text4" CanGrow="false" Text=" SALDO FINAL  " TextAlignment="TopRight" SizeF="100,15.625" LocationFloat="825,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item2 Ref="106" ControlType="XRLabel" Name="Text5" CanGrow="false" Text="CREDITOS  " TextAlignment="TopRight" SizeF="101.041664,15.625" LocationFloat="718.75,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item3 Ref="107" ControlType="XRLabel" Name="Text6" CanGrow="false" Text="DEBITOS  " TextAlignment="TopRight" SizeF="93.75,15.625" LocationFloat="617.7083,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item4 Ref="108" ControlType="XRLabel" Name="Text7" CanGrow="false" Text="  TERCERO" TextAlignment="TopLeft" SizeF="73.9583359,15.625" LocationFloat="538.5417,8.333333" Font="Arial, 7.5pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item5 Ref="109" ControlType="XRLabel" Name="Text8" CanGrow="false" Text="  DESCRIPCION" TextAlignment="TopLeft" SizeF="193.75,15.625" LocationFloat="339.583344,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item6 Ref="110" ControlType="XRLabel" Name="Text9" CanGrow="false" Text="  REFERENCIA" TextAlignment="TopLeft" SizeF="90.625,15.625" LocationFloat="243.75,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item7 Ref="111" ControlType="XRLabel" Name="Text10" CanGrow="false" Text="NUMERO" TextAlignment="TopCenter" SizeF="62.5,16.666666" LocationFloat="173.958328,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item8 Ref="112" ControlType="XRLabel" Name="Text11" CanGrow="false" Text="T.OPER." TextAlignment="TopCenter" SizeF="47.9166679,15.625" LocationFloat="119.791664,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item9 Ref="113" ControlType="XRLabel" Name="Text12" CanGrow="false" Text="  FECHA" TextAlignment="TopLeft" SizeF="64.5833359,15.625" LocationFloat="50,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item10 Ref="114" ControlType="XRLine" Name="Line1" Font="Times New Roman, 9.75pt" SizeF="908.3333,2" LocationFloat="16.666666,3.125" ForeColor="Black" BackColor="Transparent" Padding="0,0,0,0,100" BorderColor="Black" Borders="Top" BorderWidth="1" />
+            <Item11 Ref="115" ControlType="XRLine" Name="Line2" Font="Times New Roman, 9.75pt" SizeF="908.3333,2" LocationFloat="16.666666,25" ForeColor="Black" BackColor="Transparent" Padding="0,0,0,0,100" BorderColor="Black" Borders="Top" BorderWidth="1" />
+          </Controls>
+        </Item2>
+      </SubBands>
+    </Item6>
+    <Item7 Ref="116" ControlType="PageHeaderBand" Name="PageHeaderArea1" HeightF="0" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <SubBands>
+        <Item1 Ref="117" ControlType="SubBand" Name="PageHeaderSection1" HeightF="96" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+          <Controls>
+            <Item1 Ref="118" ControlType="XRLabel" Name="PEMPNOMB2" TextAlignment="TopCenter" SizeF="907.2917,13.0555553" LocationFloat="17.708334,25" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+              <ExpressionBindings>
+                <Item1 Ref="119" EventName="BeforePrint" PropertyName="Text" Expression="?P_EMP_NOMB" />
+              </ExpressionBindings>
+            </Item1>
+            <Item2 Ref="120" ControlType="XRLabel" Name="PEMPCODI1" CanGrow="false" TextAlignment="TopLeft" SizeF="75,14.583333" LocationFloat="8.333333,33.3333321" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" Visible="false">
+              <ExpressionBindings>
+                <Item1 Ref="121" EventName="BeforePrint" PropertyName="Text" Expression="?P_EMP_CODI" />
+              </ExpressionBindings>
+            </Item2>
+            <Item3 Ref="122" ControlType="XRLabel" Name="Text13" Text="AUXILIAR CUENTA SUCURSAL" TextAlignment="TopCenter" SizeF="907.2917,13.1944447" LocationFloat="17.708334,50" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item4 Ref="123" ControlType="XRLabel" Name="Text14" Text="PERIODO:  {@MES_INIC}  a  {@MES_FINA}  de  {?P_ANO}" TextAlignment="TopCenter" SizeF="907.2917,11.25" LocationFloat="17.708334,75" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item5 Ref="124" ControlType="XRLabel" Name="PCUEINIC1" CanGrow="false" TextAlignment="TopLeft" SizeF="89.65278,15.208333" LocationFloat="127.013885,16.666666" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" Visible="false">
+              <ExpressionBindings>
+                <Item1 Ref="125" EventName="BeforePrint" PropertyName="Text" Expression="?P_CUE_INIC" />
+              </ExpressionBindings>
+            </Item5>
+            <Item6 Ref="126" ControlType="XRLabel" Name="PCUEFINA1" CanGrow="false" TextAlignment="TopLeft" SizeF="122.430557,15.208333" LocationFloat="134.375,41.6666679" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" Visible="false">
+              <ExpressionBindings>
+                <Item1 Ref="127" EventName="BeforePrint" PropertyName="Text" Expression="?P_CUE_FINA" />
+              </ExpressionBindings>
+            </Item6>
+            <Item7 Ref="128" ControlType="XRLabel" Name="PARBFINA1" CanGrow="false" TextAlignment="TopLeft" SizeF="83.3333359,15.208333" LocationFloat="215.138885,8.333333" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" Visible="false">
+              <ExpressionBindings>
+                <Item1 Ref="129" EventName="BeforePrint" PropertyName="Text" Expression="?P_ARB_FINA" />
+              </ExpressionBindings>
+            </Item7>
+            <Item8 Ref="130" ControlType="XRLabel" Name="PARBINIC1" CanGrow="false" TextAlignment="TopLeft" SizeF="100,15.208333" LocationFloat="75,8.333333" Font="Times New Roman, 10pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" Visible="false">
+              <ExpressionBindings>
+                <Item1 Ref="131" EventName="BeforePrint" PropertyName="Text" Expression="?P_ARB_INIC" />
+              </ExpressionBindings>
+            </Item8>
+            <Item9 Ref="132" ControlType="XRLabel" Name="Text15" Text="Página:          {@Pagina}&#xA;Programa:     SCnAuxsu&#xA;Usuario         {?P_USER}&#xA;Fecha:          {@Fecha}&#xA;Hora:            {@Hora}" TextAlignment="TopLeft" SizeF="166.666672,66.6666641" LocationFloat="758.3333,11.458333" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+          </Controls>
+        </Item1>
+        <Item2 Ref="133" ControlType="SubBand" Name="PageHeaderSection2" HeightF="66" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+          <Controls>
+            <Item1 Ref="134" ControlType="XRLabel" Name="Text16" CanGrow="false" Text=" SALDO FINAL  " TextAlignment="TopRight" SizeF="100,15.625" LocationFloat="825,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item2 Ref="135" ControlType="XRLabel" Name="Text17" CanGrow="false" Text="CREDITOS  " TextAlignment="TopRight" SizeF="101.041664,15.625" LocationFloat="718.75,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item3 Ref="136" ControlType="XRLabel" Name="Text18" CanGrow="false" Text="DEBITOS  " TextAlignment="TopRight" SizeF="93.75,15.625" LocationFloat="617.7083,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item4 Ref="137" ControlType="XRLabel" Name="Text19" CanGrow="false" Text="  TERCERO" TextAlignment="TopLeft" SizeF="73.9583359,15.625" LocationFloat="538.5417,8.333333" Font="Arial, 7.5pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item5 Ref="138" ControlType="XRLabel" Name="Text20" CanGrow="false" Text="  DESCRIPCION" TextAlignment="TopLeft" SizeF="193.75,15.625" LocationFloat="339.583344,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item6 Ref="139" ControlType="XRLabel" Name="Text21" CanGrow="false" Text="  REFERENCIA" TextAlignment="TopLeft" SizeF="90.625,15.625" LocationFloat="243.75,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item7 Ref="140" ControlType="XRLabel" Name="Text22" CanGrow="false" Text="NUMERO" TextAlignment="TopCenter" SizeF="62.5,16.666666" LocationFloat="173.958328,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item8 Ref="141" ControlType="XRLabel" Name="Text23" CanGrow="false" Text="T.OPER." TextAlignment="TopCenter" SizeF="47.9166679,15.625" LocationFloat="119.791664,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item9 Ref="142" ControlType="XRLabel" Name="Text24" CanGrow="false" Text="  FECHA" TextAlignment="TopLeft" SizeF="64.5833359,15.625" LocationFloat="50,8.333333" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+            <Item10 Ref="143" ControlType="XRLine" Name="Line3" Font="Times New Roman, 9.75pt" SizeF="908.3333,2" LocationFloat="16.666666,3.125" ForeColor="Black" BackColor="Transparent" Padding="0,0,0,0,100" BorderColor="Black" Borders="Top" BorderWidth="1" />
+            <Item11 Ref="144" ControlType="XRLine" Name="Line4" Font="Times New Roman, 9.75pt" SizeF="908.3333,2" LocationFloat="16.666666,25" ForeColor="Black" BackColor="Transparent" Padding="0,0,0,0,100" BorderColor="Black" Borders="Top" BorderWidth="1" />
+          </Controls>
+        </Item2>
+      </SubBands>
+    </Item7>
+    <Item8 Ref="145" ControlType="ReportFooterBand" Name="ReportFooterArea1" HeightF="22" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="146" ControlType="XRLabel" Name="Text41" Text="*** FIN REPORTE ***" TextAlignment="TopCenter" SizeF="907.2917,13.958333" LocationFloat="17.708334,3.75" Font="Arial, 8pt, style=Bold" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item2 Ref="147" ControlType="XRLine" Name="Line5" Font="Times New Roman, 9.75pt" SizeF="900,2" LocationFloat="16.666666,0" ForeColor="Black" BackColor="Transparent" Padding="0,0,0,0,100" BorderColor="Black" Borders="Top" BorderWidth="1" />
+      </Controls>
+    </Item8>
+    <Item9 Ref="148" ControlType="PageFooterBand" Name="PageFooterArea1" HeightF="25" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="149" ControlType="XRLabel" Name="Text42" CanGrow="false" Text="SEVEN - Contabilidad - Digital Ware." TextAlignment="TopLeft" SizeF="272.708344,15.9722223" LocationFloat="17.708334,8.333333" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+        <Item2 Ref="150" ControlType="XRLabel" Name="PFORMATOFECHA1" CanGrow="false" TextAlignment="TopLeft" SizeF="96.6666641,12.6388893" LocationFloat="828.3333,8.333333" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1">
+          <ExpressionBindings>
+            <Item1 Ref="151" EventName="BeforePrint" PropertyName="Text" Expression="?P_FORMATO_FECHA" />
+          </ExpressionBindings>
+        </Item2>
+        <Item3 Ref="152" ControlType="XRLabel" Name="Text43" CanGrow="false" Text="Formato de fecha:" TextAlignment="TopLeft" SizeF="95.1388855,14.2361107" LocationFloat="725,8.333333" Font="Arial, 8pt" ForeColor="Black" BackColor="Transparent" Padding="2,2,0,0,100" BorderColor="Black" Borders="None" BorderWidth="1" />
+      </Controls>
+    </Item9>
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v20.1" Name="SevenDesarrollo" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0iU2V2ZW5EZXNhcnJvbGxvIj48Q29ubmVjdGlvbiBOYW1lPSJDb25uZWN0aW9uIiBQcm92aWRlcktleT0iTVNTcWxTZXJ2ZXIiPjxQYXJhbWV0ZXJzPjxQYXJhbWV0ZXIgTmFtZT0ic2VydmVyIiBWYWx1ZT0iU2V2ZW5SIiAvPjxQYXJhbWV0ZXIgTmFtZT0iZGF0YWJhc2UiIFZhbHVlPSJTZXZlbkRlc2Fycm9sbG8iIC8+PFBhcmFtZXRlciBOYW1lPSJ1c2VJbnRlZ3JhdGVkU2VjdXJpdHkiIFZhbHVlPSJGYWxzZSIgLz48UGFyYW1ldGVyIE5hbWU9InJlYWQgb25seSIgVmFsdWU9IjEiIC8+PFBhcmFtZXRlciBOYW1lPSJnZW5lcmF0ZUNvbm5lY3Rpb25IZWxwZXIiIFZhbHVlPSJmYWxzZSIgLz48UGFyYW1ldGVyIE5hbWU9InVzZXJpZCIgVmFsdWU9InNhIiAvPjxQYXJhbWV0ZXIgTmFtZT0icGFzc3dvcmQiIFZhbHVlPSIiIC8+PC9QYXJhbWV0ZXJzPjwvQ29ubmVjdGlvbj48UXVlcnkgVHlwZT0iU2VsZWN0UXVlcnkiIE5hbWU9InNlbGVjdFF1ZXJ5MSI+PFRhYmxlcz48VGFibGUgTmFtZT0iQ05fQVVYU1UiIC8+PFRhYmxlIE5hbWU9IkdOX1RFUkNFIiAvPjxSZWxhdGlvbiBUeXBlPSJJbm5lciIgUGFyZW50PSJDTl9BVVhTVSIgTmVzdGVkPSJHTl9URVJDRSI+PEtleUNvbHVtbiBQYXJlbnQ9IkVNUF9DT0RJIiBOZXN0ZWQ9IkVNUF9DT0RJIiAvPjxLZXlDb2x1bW4gUGFyZW50PSJURVJfQ09ESSIgTmVzdGVkPSJURVJfQ09ESSIgLz48L1JlbGF0aW9uPjwvVGFibGVzPjxDb2x1bW5zPjxDb2x1bW4gVGFibGU9IkNOX0FVWFNVIiBOYW1lPSJFTVBfQ09ESSIgLz48Q29sdW1uIFRhYmxlPSJDTl9BVVhTVSIgTmFtZT0iUFJDX0NPTlQiIC8+PENvbHVtbiBUYWJsZT0iQ05fQVVYU1UiIE5hbWU9IkNVRV9DT05UIiAvPjxDb2x1bW4gVGFibGU9IkNOX0FVWFNVIiBOYW1lPSJDVUVfQ09ESSIgLz48Q29sdW1uIFRhYmxlPSJDTl9BVVhTVSIgTmFtZT0iQ1VFX05PTUIiIC8+PENvbHVtbiBUYWJsZT0iQ05fQVVYU1UiIE5hbWU9IkFSQl9TVUNVIiAvPjxDb2x1bW4gVGFibGU9IkNOX0FVWFNVIiBOYW1lPSJBUkJfQ09ESSIgLz48Q29sdW1uIFRhYmxlPSJDTl9BVVhTVSIgTmFtZT0iQVJCX05PTUIiIC8+PENvbHVtbiBUYWJsZT0iQ05fQVVYU1UiIE5hbWU9IlNBTF9JTklDIiAvPjxDb2x1bW4gVGFibGU9IkNOX0FVWFNVIiBOYW1lPSJETUNfVkFEQiIgLz48Q29sdW1uIFRhYmxlPSJDTl9BVVhTVSIgTmFtZT0iRE1DX1ZBQ1IiIC8+PENvbHVtbiBUYWJsZT0iQ05fQVVYU1UiIE5hbWU9IlRPUF9DT0RJIiAvPjxDb2x1bW4gVGFibGU9IkNOX0FVWFNVIiBOYW1lPSJNQ09fTlVNRSIgLz48Q29sdW1uIFRhYmxlPSJDTl9BVVhTVSIgTmFtZT0iTUNPX0ZFQ0giIC8+PENvbHVtbiBUYWJsZT0iQ05fQVVYU1UiIE5hbWU9IkRNQ19ERVNDIiAvPjxDb2x1bW4gVGFibGU9IkNOX0FVWFNVIiBOYW1lPSJETUNfUkVGRSIgLz48Q29sdW1uIFRhYmxlPSJDTl9BVVhTVSIgTmFtZT0iVEVSX0NPREkiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IkVNUF9DT0RJIiBBbGlhcz0iR05fVEVSQ0VfRU1QX0NPREkiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlRFUl9DT0RJIiBBbGlhcz0iR05fVEVSQ0VfVEVSX0NPREkiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlRFUl9ESVZFIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJUSVBfQ09ESSIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iTU9EX0NPREkiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlRFUl9OT01CIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJURVJfQVBFTCIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iVEVSX05PQ08iIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlBBSV9DT0RJIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJERVBfQ09ESSIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iTVVOX0NPREkiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlRFUl9ESVJFIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJURVJfTUFJTCIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iVEVSX05URUwiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlRFUl9ORkFYIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJURVJfT0ZJQyIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iVEVSX0NPT0YiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlRFUl9BQ1RJIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJBVURfRVNUQSIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iQVVEX1VTVUEiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IkFVRF9VRkFDIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJUSVBfQ1BBQyIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iVEVSX1BBQ0giIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlRFUl9OQUNIIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJURVJfTklERSIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iVEVSX05PQ00iIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlRFUl9DT0RBIiAvPjxDb2x1bW4gVGFibGU9IkdOX1RFUkNFIiBOYW1lPSJURVJfUklWQSIgLz48Q29sdW1uIFRhYmxlPSJHTl9URVJDRSIgTmFtZT0iQVJCX0NMVEUiIC8+PENvbHVtbiBUYWJsZT0iR05fVEVSQ0UiIE5hbWU9IlJFR19DT0RJIiAvPjwvQ29sdW1ucz48L1F1ZXJ5PjxSZXN1bHRTY2hlbWE+PERhdGFTZXQgTmFtZT0iU2V2ZW5EZXNhcnJvbGxvIj48VmlldyBOYW1lPSJzZWxlY3RRdWVyeTEiPjxGaWVsZCBOYW1lPSJFTVBfQ09ESSIgVHlwZT0iSW50MTYiIC8+PEZpZWxkIE5hbWU9IlBSQ19DT05UIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iQ1VFX0NPTlQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJDVUVfQ09ESSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJDVUVfTk9NQiIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJBUkJfU1VDVSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkFSQl9DT0RJIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFSQl9OT01CIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlNBTF9JTklDIiBUeXBlPSJVSW50MzIiIC8+PEZpZWxkIE5hbWU9IkRNQ19WQURCIiBUeXBlPSJVSW50MzIiIC8+PEZpZWxkIE5hbWU9IkRNQ19WQUNSIiBUeXBlPSJVSW50MzIiIC8+PEZpZWxkIE5hbWU9IlRPUF9DT0RJIiBUeXBlPSJJbnQxNiIgLz48RmllbGQgTmFtZT0iTUNPX05VTUUiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJNQ09fRkVDSCIgVHlwZT0iRGF0ZVRpbWUiIC8+PEZpZWxkIE5hbWU9IkRNQ19ERVNDIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRNQ19SRUZFIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9DT0RJIiBUeXBlPSJVSW50MzIiIC8+PEZpZWxkIE5hbWU9IkdOX1RFUkNFX0VNUF9DT0RJIiBUeXBlPSJJbnQxNiIgLz48RmllbGQgTmFtZT0iR05fVEVSQ0VfVEVSX0NPREkiIFR5cGU9IlVJbnQzMiIgLz48RmllbGQgTmFtZT0iVEVSX0RJVkUiIFR5cGU9IlVJbnQzMiIgLz48RmllbGQgTmFtZT0iVElQX0NPREkiIFR5cGU9IkludDE2IiAvPjxGaWVsZCBOYW1lPSJNT0RfQ09ESSIgVHlwZT0iSW50MTYiIC8+PEZpZWxkIE5hbWU9IlRFUl9OT01CIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9BUEVMIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9OT0NPIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlBBSV9DT0RJIiBUeXBlPSJJbnQxNiIgLz48RmllbGQgTmFtZT0iREVQX0NPREkiIFR5cGU9IkludDE2IiAvPjxGaWVsZCBOYW1lPSJNVU5fQ09ESSIgVHlwZT0iSW50MTYiIC8+PEZpZWxkIE5hbWU9IlRFUl9ESVJFIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9NQUlMIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9OVEVMIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9ORkFYIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9PRklDIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9DT09GIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRFUl9BQ1RJIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFVRF9FU1RBIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFVRF9VU1VBIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFVRF9VRkFDIiBUeXBlPSJEYXRlVGltZSIgLz48RmllbGQgTmFtZT0iVElQX0NQQUMiIFR5cGU9IkludDE2IiAvPjxGaWVsZCBOYW1lPSJURVJfUEFDSCIgVHlwZT0iVUludDMyIiAvPjxGaWVsZCBOYW1lPSJURVJfTkFDSCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJURVJfTklERSIgVHlwZT0iVUludDMyIiAvPjxGaWVsZCBOYW1lPSJURVJfTk9DTSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJURVJfQ09EQSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJURVJfUklWQSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJBUkJfQ0xURSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlJFR19DT0RJIiBUeXBlPSJJbnQxNiIgLz48L1ZpZXc+PC9EYXRhU2V0PjwvUmVzdWx0U2NoZW1hPjxDb25uZWN0aW9uT3B0aW9ucyBDbG9zZUNvbm5lY3Rpb249InRydWUiIC8+PC9TcWxEYXRhU291cmNlPg==" />
+  </ComponentStorage>
+  <ObjectStorage>
+    <Item1 ObjectType="DevExpress.XtraReports.Serialization.ObjectStorageInfo, DevExpress.XtraReports.v20.1" Ref="2" Content="System.Double" Type="System.Type" />
+  </ObjectStorage>
+</XtraReportsLayoutSerializer>
