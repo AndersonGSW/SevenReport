@@ -15,7 +15,7 @@ namespace SevenReport {
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder()
                 .UseStartup<Startup>();
     }
 }

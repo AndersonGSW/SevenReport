@@ -29,6 +29,12 @@ namespace SevenReport
         {
             Configuration = configuration;
         }
+        void ProcessException(Exception ex, string message)
+        {
+            // Log exceptions here. For instance:
+            System.Diagnostics.Debug.WriteLine("[{0}]: Exception occured. Message: '{1}'. Exception Details:\r\n{2}",
+                DateTime.Now, message, ex);
+        }
 
         public IConfiguration Configuration { get; }
 
@@ -68,6 +74,11 @@ namespace SevenReport
             //        builder.WithHeaders("Content-Type");
             //    });
             //});
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+                options.HttpsPort = 5001;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,22 +91,24 @@ namespace SevenReport
                 reportingLogger.LogError(logMessage);
             });
             DevExpress.XtraReports.Configuration.Settings.Default.UserDesignerOptions.DataBindingMode = DevExpress.XtraReports.UI.DataBindingMode.ExpressionsAdvanced;
-            if (env.IsDevelopment())
+            DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize(ProcessException);
+
+            // if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    app.UseHsts();
+            //}
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
+            //if (!env.IsDevelopment())
+            //{
+            //    app.UseSpaStaticFiles();
+            //}
 
             app.UseRouting();
 
@@ -125,7 +138,7 @@ namespace SevenReport
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                //if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }

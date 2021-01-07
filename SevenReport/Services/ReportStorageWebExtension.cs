@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using SevenReport.PredefinedReports;
 using System.Data;
 using System.Web;
+using DevExpress.DataAccess.Sql;
 
 namespace SevenReport.Services
 {
@@ -88,11 +89,11 @@ namespace SevenReport.Services
                 int position = filtro.IndexOf(".");
                 if (filtros.Length == 0)
                 {
-                    filtros = filtro.Substring(position + 1);
+                    filtros = filtro; //filtro.Substring(position + 1);
                 }
                 else
                 {
-                    filtros = filtros + " and " + filtro.Substring(position + 1);
+                    filtros = filtros + " and " + filtro; //filtro.Substring(position + 1);
                 }
             }
 
@@ -108,7 +109,24 @@ namespace SevenReport.Services
                         XtraReport report = new XtraReport();
                         report.LoadLayout(path);
 
-                        report.FilterString = filtros;
+                        var ds = (((DevExpress.DataAccess.Sql.SqlDataSource)report.DataSource) as SqlDataSource);
+                        string sql = (ds.Queries["selectQuery1"] as CustomSqlQuery).Sql;
+
+                        sql = sql.Replace("where", "WHERE");
+                        sql = sql.Replace("WHERE", "WHERE");
+                        sql = sql.Replace("Where", "WHERE");
+
+                        int posi = sql.IndexOf("WHERE");
+
+                        if (posi != 0)
+                            sql = sql.Remove(posi);
+
+                        filtros = " WHERE " + filtros;
+                        sql = sql + filtros;
+
+                        (ds.Queries["selectQuery1"] as CustomSqlQuery).Sql = sql;
+
+                        //report.FilterString = filtros;
 
                         if (report.Parameters.Count != listaParam.Count)
                             throw new Exception("El número de parametros del reporte es diferente al número de parametros enviados, revise la versión del programa y el reporte");
