@@ -11,6 +11,7 @@ using SevenReport.PredefinedReports;
 using System.Data;
 using System.Web;
 using DevExpress.DataAccess.Sql;
+using DevExpress.XtraReports.Native.Data;
 
 namespace SevenReport.Services
 {
@@ -109,24 +110,8 @@ namespace SevenReport.Services
                         XtraReport report = new XtraReport();
                         report.LoadLayout(path);
 
-                        var ds = (((DevExpress.DataAccess.Sql.SqlDataSource)report.DataSource) as SqlDataSource);
-                        string sql = (ds.Queries["selectQuery1"] as CustomSqlQuery).Sql;
-
-                        sql = sql.Replace("where", "WHERE");
-                        sql = sql.Replace("WHERE", "WHERE");
-                        sql = sql.Replace("Where", "WHERE");
-
-                        int posi = sql.IndexOf("WHERE");
-
-                        if (posi != 0)
-                            sql = sql.Remove(posi);
-
-                        filtros = " WHERE " + filtros;
-                        sql = sql + filtros;
-
-                        (ds.Queries["selectQuery1"] as CustomSqlQuery).Sql = sql;
-
-                        //report.FilterString = filtros;
+                        DevExpress.DataAccess.Sql.SqlDataSource.DisableCustomQueryValidation = true;
+                        UpdateDataSources(report, filtros);
 
                         if (report.Parameters.Count != listaParam.Count)
                             throw new Exception("El número de parametros del reporte es diferente al número de parametros enviados, revise la versión del programa y el reporte");
@@ -178,6 +163,22 @@ namespace SevenReport.Services
             // and return the resulting URL used to save a report in your storage.
             SetData(report, defaultUrl);
             return defaultUrl;
+        }
+
+        void UpdateDataSources(XtraReport report, string filtros)
+        {
+            UniqueDataSourceEnumerator enumerator = new UniqueDataSourceEnumerator();
+            var datasources = enumerator.EnumerateDataSources(report, false);
+            foreach (var datasource in datasources)
+            {
+                if (datasource is SqlDataSource sqlDataSource)
+                {
+                    foreach (SelectQuery query in sqlDataSource.Queries)
+                    {
+                        query.FilterString = filtros;
+                    }
+                }
+            }
         }
     }
 }

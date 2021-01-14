@@ -2,8 +2,6 @@ import { Component, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DxReportViewerComponent } from 'devexpress-reporting-angular';
 
-import DevExpress from "devexpress-reporting"; 
-
 @Component({
   selector: 'report-viewer',
   encapsulation: ViewEncapsulation.None,
@@ -23,9 +21,7 @@ export class ReportViewerComponent {
   reportUri = '';
   invokeAction = '/DXXRDV';
 
-    constructor(@Inject('BASE_URL') public hostUrl: string, private _route: ActivatedRoute) {
-      DevExpress.Reporting.Viewer.Settings.AsyncExportApproach = true;
-     }
+    constructor(@Inject('BASE_URL') public hostUrl: string, private _route: ActivatedRoute) { }
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {

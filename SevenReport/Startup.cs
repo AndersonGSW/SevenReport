@@ -152,8 +152,8 @@ namespace SevenReport
                     .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                     .AddInMemoryCollection(new Dictionary<string, string>()
                     {
-                        // [$"ConnectionStrings:SevenDesarrollo"] = "XpoProvider=MSSqlServer;Server=cerezo;User ID=desarrollo;Password=Desarrollo2018;Database=sevendesarrollo;Trusted_Connection=False;MultipleActiveResultSets=true;"
-                        [$"ConnectionStrings:SevenDesarrollo"] = "XpoProvider=MSSqlServer;Server=190.85.14.66,1933;User ID=XXX;Password=Sistemas123;Database=SevenOphelia;Trusted_Connection=False;MultipleActiveResultSets=true;"
+                        [$"ConnectionStrings:SevenDesarrollo"] = "XpoProvider=MSSqlServer;Server=cerezo;User ID=desarrollo;Password=Desarrollo2018;Database=sevendesarrollo;Trusted_Connection=False;MultipleActiveResultSets=true;"
+                        // [$"ConnectionStrings:SevenDesarrollo"] = "XpoProvider=MSSqlServer;Server=190.85.14.66,1933;User ID=XXX;Password=Sistemas123;Database=SevenOphelia;Trusted_Connection=False;MultipleActiveResultSets=true;"
                     })
                     .AddEnvironmentVariables();
             var reportCustomConfiguration = configurationBuilder.Build();
