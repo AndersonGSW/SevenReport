@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using SevenReport.Code;
+using SevenReport.Services;
 
 namespace SevenReport.Services
 {

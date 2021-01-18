@@ -7,11 +7,11 @@ using System.Reflection;
 using DevExpress.XtraReports.Web.Extensions;
 using DevExpress.XtraReports.UI;
 using Microsoft.AspNetCore.Hosting;
-using SevenReport.PredefinedReports;
 using System.Data;
 using System.Web;
 using DevExpress.DataAccess.Sql;
 using DevExpress.XtraReports.Native.Data;
+using SevenReport.PredefinedReports;
 
 namespace SevenReport.Services
 {

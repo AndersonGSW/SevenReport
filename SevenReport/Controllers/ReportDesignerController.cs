@@ -1,15 +1,19 @@
-using DevExpress.Compatibility.System.Web;
+﻿using DevExpress.Compatibility.System.Web;
 using DevExpress.DataAccess.Sql;
-using System.Collections.Generic;
-using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.Web.ReportDesigner;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
-namespace SevenReport.Controllers {
+namespace SevenReport.Controllers
+{
     [Route("api/[controller]")]
-    public class ReportDesignerController: Controller {
+    public class ReportDesignerController : Controller
+    {
+      
         [HttpPost("[action]")]
-        public object GetReportDesignerModel([FromForm]string reportUrl) {
+        public object GetReportDesignerModel([FromForm] string reportUrl)
+        {
             Dictionary<string, object> dataSources = new Dictionary<string, object>();
             SqlDataSource ds = new SqlDataSource("SevenR");
 

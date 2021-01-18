@@ -3,7 +3,8 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container-fluid">
-      <a class="navbar-brand" [routerLink]="['/']">SevenReport</a>
+      <!-- <a class="navbar-brand" [routerLink]="['/']">SevenReport</a> -->
+      <a>SevenReport</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -19,17 +20,18 @@
         class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
         [ngClass]="{ show: isExpanded }"
       >
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }" >
+        <!-- <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/']">Inicio</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/designer']">Diseñador de Reportes</a >
+            <a class="nav-link text-dark" [routerLink]="['/counter']">DiseÃ±ador de Reportes</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/viewer']">Visualizador de Reportes</a>
+            <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Visualizador de Reportes</a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </nav>

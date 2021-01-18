@@ -20,7 +20,7 @@ export class ReportViewerComponent {
   reportUrl = '';
   reportUri = '';
   invokeAction = '/DXXRDV';
-
+ 
     constructor(@Inject('BASE_URL') public hostUrl: string, private _route: ActivatedRoute) { }
 
   // tslint:disable-next-line: use-lifecycle-interface

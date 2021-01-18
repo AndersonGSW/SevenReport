@@ -9,20 +9,6 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "paths": {
-      "globalize": [
-        "../node_modules/globalize/dist/globalize"
-      ],
-      "globalize/*": [
-        "../node_modules/globalize/dist/globalize/*"
-      ],
-      "cldr": [
-        "../node_modules/cldrjs/dist/cldr"
-      ],
-      "cldr/*": [
-        "../node_modules/cldrjs/dist/cldr/*"
-      ]
-    },
     "target": "es2015",
     "typeRoots": [
       "node_modules/@types"

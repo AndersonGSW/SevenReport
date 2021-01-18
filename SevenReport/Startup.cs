@@ -20,168 +20,161 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Server;
+using System.Diagnostics;
 
 namespace SevenReport
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-        void ProcessException(Exception ex, string message)
-        {
-            // Log exceptions here. For instance:
-            System.Diagnostics.Debug.WriteLine("[{0}]: Exception occured. Message: '{1}'. Exception Details:\r\n{2}",
-                DateTime.Now, message, ex);
-        }
+	public class Startup
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
+	
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDevExpressControls();
-            services.AddMvcCore();
-            services.AddSession();
-            services.AddScoped<ReportStorageWebExtension, NewSevenReport>();
-            services
-                .AddMvc()
-                .AddDefaultReportingControllers()
-                .AddNewtonsoftJson()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.ConfigureReportingServices(configurator =>
-            {
-                configurator.ConfigureReportDesigner(designerConfigurator =>
-                {
-                    designerConfigurator.RegisterDataSourceWizardConfigFileConnectionStringsProvider();
-                    designerConfigurator.RegisterDataSourceWizardJsonConnectionStorage<CustomDataSourceWizardJsonDataConnectionStorage>(true);
-                    designerConfigurator.RegisterObjectDataSourceWizardTypeProvider<ObjectDataSourceWizardCustomTypeProvider>();
-                });
-                configurator.ConfigureWebDocumentViewer(viewerConfigurator =>
-                {
-                    viewerConfigurator.UseCachedReportSourceBuilder();
-                    viewerConfigurator.RegisterJsonDataConnectionProviderFactory<CustomJsonDataConnectionProviderFactory>();
-                });
-            });
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
-            //services.AddCors(options => {
-            //    options.AddPolicy("AllowCorsPolicy", builder => {
-            //        builder.WithOrigins("http://localhost:3000");
-            //        builder.WithHeaders("Content-Type");
-            //    });
-            //});
-            services.AddHttpsRedirection(options =>
-            {
-                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                options.HttpsPort = 5001;
-            });
-        }
+		void ProcessException(Exception ex, string message)
+		{
+			// Log exceptions here. For instance:
+			System.Diagnostics.Debug.WriteLine("[{0}]: Exception occured. Message: '{1}'. Exception Details:\r\n{2}",
+				DateTime.Now, message, ex);
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
-        {
-            var reportingLogger = loggerFactory.CreateLogger("DXReporting");
-            DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize((exception, message) =>
-            {
-                var logMessage = $"[{DateTime.Now}]: Exception occurred. Message: '{message}'. Exception Details:\r\n{exception}";
-                reportingLogger.LogError(logMessage);
-            });
-            DevExpress.XtraReports.Configuration.Settings.Default.UserDesignerOptions.DataBindingMode = DevExpress.XtraReports.UI.DataBindingMode.ExpressionsAdvanced;
-            DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize(ProcessException);
+		public IConfiguration Configuration { get; }
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			//services.AddControllersWithViews();
+			services.AddDevExpressControls();
+			services.AddMvcCore();
+			services.AddSession();
+			services.AddScoped<ReportStorageWebExtension, NewSevenReport>();
+			services
+				.AddMvc()
+				.AddDefaultReportingControllers()
+				//.AddNewtonsoftJson()
+				.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+			services.ConfigureReportingServices(configurator =>
+			{
+				configurator.ConfigureReportDesigner(designerConfigurator =>
+				{
+					designerConfigurator.RegisterDataSourceWizardConfigFileConnectionStringsProvider();
+					designerConfigurator.RegisterDataSourceWizardJsonConnectionStorage<CustomDataSourceWizardJsonDataConnectionStorage>(true);
+					designerConfigurator.RegisterObjectDataSourceWizardTypeProvider<ObjectDataSourceWizardCustomTypeProvider>();
+				});
+				configurator.ConfigureWebDocumentViewer(viewerConfigurator =>
+				{
+					viewerConfigurator.UseCachedReportSourceBuilder();
+					viewerConfigurator.RegisterJsonDataConnectionProviderFactory<CustomJsonDataConnectionProviderFactory>();
+				});
+			});
+			// In production, the Angular files will be served from this directory
+			services.AddSpaStaticFiles(configuration =>
+			{
+				configuration.RootPath = "ClientApp/dist";
+			});
 
-            // if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            //else
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //    app.UseHsts();
-            //}
+			services.AddHttpsRedirection(options =>
+			{
+				options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+				options.HttpsPort = 5001;
+			});
+		}
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            //if (!env.IsDevelopment())
-            //{
-            //    app.UseSpaStaticFiles();
-            //}
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+		{
 
-            app.UseRouting();
+			var reportingLogger = loggerFactory.CreateLogger("DXReporting");
+			DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize((exception, message) =>
+			{
+				var logMessage = $"[{DateTime.Now}]: Exception occurred. Message: '{message}'. Exception Details:\r\n{exception}";
+				reportingLogger.LogError(logMessage);
+			});
+			DevExpress.XtraReports.Configuration.Settings.Default.UserDesignerOptions.DataBindingMode = DevExpress.XtraReports.UI.DataBindingMode.ExpressionsAdvanced;
+			DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize(ProcessException);
 
-            app.UseSession();
-            app.UseDevExpressControls();
-            System.Net.ServicePointManager.SecurityProtocol |= System.Net.SecurityProtocolType.Tls12;
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
 
-                //// Create the address endpoint, consisting of our middleware
-                //var addressEndpoint = endpoints
-                //    .CreateApplicationBuilder()
-                //    .UseMiddleware<ServerAddressesMiddleware>()
-                //    .Build();
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+				// EventLog.WriteEntry("Info", "Debug ");
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
+				app.UseHsts();
+				// EventLog.WriteEntry("Info", "Release 1");
+			}
 
-                //// Register the endpoint
-                //endpoints.MapGet("/addresses", addressEndpoint);
-            });
+			app.UseHttpsRedirection();
+			app.UseStaticFiles();
+			if (!env.IsDevelopment())
+			{
+				app.UseSpaStaticFiles();
+			}
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
+			app.UseRouting();
+			app.UseSession();
+			app.UseDevExpressControls();
+			System.Net.ServicePointManager.SecurityProtocol |= System.Net.SecurityProtocolType.Tls12;
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{controller}/{action=Index}/{id?}");
+			});
 
-                spa.Options.SourcePath = "ClientApp";
+			app.UseSpa(spa =>
+			{
+				// To learn more about options for serving an Angular SPA from ASP.NET Core,
+				// see https://go.microsoft.com/fwlink/?linkid=864501
 
-                //if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+				spa.Options.SourcePath = "ClientApp";
 
-            app.UseCors("AllowCorsPolicy");
+				if (env.IsDevelopment())
+				{
+					spa.UseAngularCliServer(npmScript: "start");
+				}
+			});
 
-            var configurationBuilder = new ConfigurationBuilder()
-                    .SetBasePath("D:/DW/converted")
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                    .AddInMemoryCollection(new Dictionary<string, string>()
-                    {
-                        [$"ConnectionStrings:SevenDesarrollo"] = "XpoProvider=MSSqlServer;Server=cerezo;User ID=desarrollo;Password=Desarrollo2018;Database=sevendesarrollo;Trusted_Connection=False;MultipleActiveResultSets=true;"
-                        // [$"ConnectionStrings:SevenDesarrollo"] = "XpoProvider=MSSqlServer;Server=190.85.14.66,1933;User ID=XXX;Password=Sistemas123;Database=SevenOphelia;Trusted_Connection=False;MultipleActiveResultSets=true;"
-                    })
-                    .AddEnvironmentVariables();
-            var reportCustomConfiguration = configurationBuilder.Build();
+			app.UseCors("AllowCorsPolicy");
 
-            var globalConnectionStrings = reportCustomConfiguration
-                            .GetSection("ConnectionStrings")
-                            .AsEnumerable(true)
-                            .ToDictionary(x => x.Key, x => x.Value);
-            DevExpress.DataAccess.DefaultConnectionStringProvider.AssignConnectionStrings(globalConnectionStrings);
-        }
+			var configurationBuilder = new ConfigurationBuilder()
+					.SetBasePath("D:/DW/converted")
+					.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+					.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+					.AddInMemoryCollection(new Dictionary<string, string>()
+					{
+						[$"ConnectionStrings:SevenDesarrollo"] = "XpoProvider=MSSqlServer;Server=cerezo;User ID=desarrollo;Password=Desarrollo2018;Database=sevendesarrollo;Trusted_Connection=False;MultipleActiveResultSets=true;"
+						// [$"ConnectionStrings:SevenDesarrollo"] = "XpoProvider=MSSqlServer;Server=190.85.14.66,1933;User ID=XXX;Password=Sistemas123;Database=SevenOphelia;Trusted_Connection=False;MultipleActiveResultSets=true;"
+					})
+					.AddEnvironmentVariables();
+			var reportCustomConfiguration = configurationBuilder.Build();
 
-        public class ServerAddressesMiddleware
-        {
-            private readonly IFeatureCollection _features;
-            public ServerAddressesMiddleware(RequestDelegate _, IServer server)
-            {
-                _features = server.Features;
-            }
+			var globalConnectionStrings = reportCustomConfiguration
+							.GetSection("ConnectionStrings")
+							.AsEnumerable(true)
+							.ToDictionary(x => x.Key, x => x.Value);
+			DevExpress.DataAccess.DefaultConnectionStringProvider.AssignConnectionStrings(globalConnectionStrings);
+		}
+		public class ServerAddressesMiddleware
+		{
+			private readonly IFeatureCollection _features;
+			public ServerAddressesMiddleware(RequestDelegate _, IServer server)
+			{
+				_features = server.Features;
+			}
 
-            public async Task Invoke(HttpContext context)
-            {
-                // fetch the addresses
-                var addressFeature = _features.Get<IServerAddressesFeature>();
-                var addresses = addressFeature.Addresses;
+			public async Task Invoke(HttpContext context)
+			{
+				// fetch the addresses
+				var addressFeature = _features.Get<IServerAddressesFeature>();
+				var addresses = addressFeature.Addresses;
 
-                // Write the addresses as a comma separated list
-                await context.Response.WriteAsync(string.Join(",", addresses));
-            }
-        }
-    }
+				// Write the addresses as a comma separated list
+				await context.Response.WriteAsync(string.Join(",", addresses));
+			}
+		}
+	}
 }
